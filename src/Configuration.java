@@ -8,6 +8,8 @@ public class Configuration {
 	private List<Rule> sendRules;
 	
 	private List<Rule> receiveRules;
+	
+	private String clockType;
 
 	Configuration(){
 		this.nodeList = new ArrayList<Node>();
@@ -29,6 +31,8 @@ public class Configuration {
 	
 	public List<Rule> getReceiveRules() {return receiveRules;}
 	
+	public String getClockType() {return clockType;}
+	
 	public void setNodeList(List<Node> nodeList) {
 		this.nodeList = nodeList;
 	}
@@ -39,6 +43,10 @@ public class Configuration {
 	
 	public void setReceiveRules(List<Rule> receiveRules){
 		this.receiveRules = receiveRules;
+	}
+	
+	public void setClocktype(String clockType) {
+		this.clockType = clockType;
 	}
 	
 }
