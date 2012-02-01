@@ -9,7 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 
 public class YalmParse {
 	public static void main(String [] args) throws FileNotFoundException {
-		String confFile = "conf/lab0.conf";
+		String confFile = "D:/Dropbox/share/lab0.conf";
 		
 		Configuration conf = YalmParse.parse(confFile);
 		for(Node node:conf.getNodeList())	{

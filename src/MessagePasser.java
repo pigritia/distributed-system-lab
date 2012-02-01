@@ -49,7 +49,7 @@ public class MessagePasser {
 			else if(command.equals("#receive"))	{
 				receive();
 			}
-			else if(command.equals("update"))	{
+			else if(command.equals("#update"))	{
 				try {
 					config = YalmParse.parse(configurationFilename);
 				} catch (FileNotFoundException e) {

@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Time;
 import java.text.*;
 import java.util.*;
@@ -10,13 +12,13 @@ public class Logger implements Observer {
 	private MessagePasser messagePasser;
 
 	private static String logDir = "log/";
-	private List<Message> messages;
+	private List<TimeStampMessage> messages;
 	public Logger(String configurationFilename)	{
 		messagePasser = new MessagePasser(configurationFilename,"logger");
-		messages = new ArrayList<Message>();
+		messages = new ArrayList<TimeStampMessage>();
 	}
 	private void sortMessages() {
-		
+		Collections.sort(messages);
 	}
 	private void logEvents()	throws IOException{
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
@@ -29,23 +31,38 @@ public class Logger implements Observer {
 		bw.close();
 		fw.close();
 	}
+	public void run() throws IOException	{
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+		
+		
+		while(true)	{
+			String command = br.readLine();
+			if(command.equals("#log"))	{
+				sortMessages();
+				logEvents();
+			}
+		}
+	}
 	
 	@Override 
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		Message message = (Message) arg1;
+		TimeStampMessage message = (TimeStampMessage) arg1;
+		messages.add(message);
 	}
 	
 	
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Logger logger = new Logger(args[0]);
-		
+		logger.run();
 	}
 
 
