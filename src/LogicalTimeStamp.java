@@ -1,27 +1,39 @@
 
 public class LogicalTimeStamp extends TimeStamp {
-	private long currentTime;
+	private long clock;
 	
-	public long getCurrentTime() { return currentTime; }
+	public LogicalTimeStamp() {
+		super();
+	}
 	
-	public void setCurrentTime( long currentTime ) {
-		this.currentTime = currentTime;
+	public LogicalTimeStamp(int userID) {
+		super(userID);
+	}
+	
+	public long getClock() { return clock; }
+	
+	public void setClock( long currentTime ) {
+		this.clock = currentTime;
 	}
 	
 	public static int compare( TimeStamp a, TimeStamp b) { 
-		long aa = ((LogicalTimeStamp)a).getCurrentTime();
-		long bb = ((LogicalTimeStamp)b).getCurrentTime();
+		long aa = ((LogicalTimeStamp)a).getClock();
+		long bb = ((LogicalTimeStamp)b).getClock();
 		
 		return aa > bb ? 1 : ( aa == bb ? 0 : -1);		
 	}
 	
 	public void syncTime( TimeStamp newTimeStamp) {
-		long newTime = ((LogicalTimeStamp)newTimeStamp).getCurrentTime();
+		long newTime = ((LogicalTimeStamp)newTimeStamp).getClock();
 		
-		currentTime = currentTime > newTime ? currentTime : newTime;
+		clock = clock > newTime ? clock : newTime;
 	}
 	
 	public void addByOneTick() {
-		this.currentTime++;
+		this.clock++;
+	}
+	
+	public String toString() {
+		return ((Long)clock).toString();
 	}
 }

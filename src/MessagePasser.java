@@ -24,7 +24,14 @@ public class MessagePasser {
 		name = localName;
 		receivedMessages = new LinkedList<Message>();
 		toSendMessages = new LinkedList<Message>();
+		
+		//send register message
+		
+		//block until receive feedback
 	}
+	
+	public String getName() { return name; }
+	
 	public void run() throws IOException	{
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
@@ -49,6 +56,8 @@ public class MessagePasser {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			} else if (command.equals("#process")) {
+				
 			}
 		}
 	}

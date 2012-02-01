@@ -2,6 +2,14 @@
 public abstract class TimeStamp {
 	private int userID;
 	
+	public TimeStamp() {
+		userID = -1;
+	}
+	
+	public TimeStamp(int userID) {
+		this.userID = userID;
+	}
+	
 	public int getUserID() { return userID; }
 	
 	public void setUserID( int userID ) {
