@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +46,22 @@ public class Configuration {
 		this.receiveRules = receiveRules;
 	}
 	
-	public void setClocktype(String clockType) {
+	public void setClockType(String clockType) {
 		this.clockType = clockType;
+	}
+	
+	public static void main(String[] args) {
+		String file = "conf/lab0.conf";
+		Configuration config = new Configuration();
+		try {
+			config = YalmParse.parse(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		System.out.print(config.getNode("logger").getPort());
+		System.out.print(config.getClockType());
 	}
 	
 }
