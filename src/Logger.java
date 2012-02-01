@@ -8,18 +8,23 @@ import java.util.*;
 
 public class Logger implements Observer {
 	private MessagePasser messagePasser;
-	public Logger()	{
-		events = new ArrayList<Event>();
-	}
+
 	private static String logDir = "log/";
-	private List<Event> events;
+	private List<Message> messages;
+	public Logger(String configurationFilename)	{
+		messagePasser = new MessagePasser(configurationFilename,"logger");
+		messages = new ArrayList<Message>();
+	}
+	private void sortMessages() {
+		
+	}
 	private void logEvents()	throws IOException{
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
 		String LogFileName = logDir + formatter.format(new Date()) + "_log.txt";
 		FileWriter fw = new FileWriter(LogFileName);
 		BufferedWriter bw = new BufferedWriter(fw);
-		for(Event event:events)	{
-			bw.write(event.toString());
+		for(Message message:messages)	{
+			bw.write(message.toString());
 		}
 		bw.close();
 		fw.close();
@@ -36,14 +41,11 @@ public class Logger implements Observer {
 	/**
 	 * @param args
 	 */
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		try {
-			new Logger().logEvents();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Logger logger = new Logger(args[0]);
+		
 	}
 
 
