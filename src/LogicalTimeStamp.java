@@ -20,5 +20,8 @@ public class LogicalTimeStamp extends TimeStamp {
 		
 		currentTime = currentTime > newTime ? currentTime : newTime;
 	}
-
+	
+	public void addByOneTick() {
+		this.currentTime++;
+	}
 }

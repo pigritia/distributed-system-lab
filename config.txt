@@ -19,6 +19,11 @@ nodeList :
  - name : daphnie
    ip : 128.237.197.245
    port : 1987
+   
+logger :
+ - name : alice
+   ip : 128.237.118.231
+   port : 12344 
   
   
 sendRules :
