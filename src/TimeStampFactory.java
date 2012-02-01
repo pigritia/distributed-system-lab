@@ -1,4 +1,4 @@
-public class TimeStampFractory {
+public class TimeStampFactory {
 
 	public static TimeStamp getTimeStamp(String type) {
 		if (type.equals("logical")) {
@@ -16,6 +16,17 @@ public class TimeStampFractory {
 			return new LogicalTimeStamp(userID);
 		} else if (type.equals("vector")) {
 			return new VectorTimeStamp(userID);
+		} else {
+			System.err.println("clock type should be either logical or vector");
+			return null;
+		}
+	}
+	
+	public static TimeStamp getTimeStamp(String type, int userID, int nodeNumber) {
+		if (type.equals("logical")) {
+			return new LogicalTimeStamp(userID);
+		} else if (type.equals("vector")) {
+			return new VectorTimeStamp(userID, nodeNumber);
 		} else {
 			System.err.println("clock type should be either logical or vector");
 			return null;

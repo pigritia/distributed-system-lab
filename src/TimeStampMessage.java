@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class TimeStampMessage extends Message implements Comparable<TimeStampMessage>{
+
+public class TimeStampMessage extends Message implements Comparable<TimeStampMessage>,Serializable{
 	private TimeStamp timeStamp;
 	
 	public TimeStampMessage(String src, String dest, String kind, TimeStamp timeStamp, Object data) {
@@ -15,19 +17,24 @@ public class TimeStampMessage extends Message implements Comparable<TimeStampMes
 	
 	public String toString()	{
 		return "From " + src + " to " + dest + " " +kind + " id=" +id+"\r\n" +
-				timeStamp.toString() + "\r\n" +
-				message;
+				"TimeStamp: " +timeStamp.toString() + "\r\n" +
+				"Message: " + message + "\r\n";
 	}
 
 	@Override
 	public int compareTo(TimeStampMessage o) {
-		int compareResult = TimeStamp.compare(this.timeStamp,o.timeStamp);
+		int compareResult = timeStamp.compare(this.timeStamp,o.timeStamp);
 		if(compareResult == 0)	{
 			if(this.timeStamp.getUserID() < o.timeStamp.getUserID())
-				return -1;
+				compareResult = -1;
+			
 			else 
-				return 1;
+				compareResult=1;
+				
 		}
+		System.out.println(this.timeStamp + " " + o.timeStamp  + " " +
+				timeStamp.getUserID() + " " + o.timeStamp.getUserID()+ "\t" +compareResult);
+
 		return compareResult;
 	}
    

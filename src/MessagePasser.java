@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.*;
 
-public class MessagePasser {
+public class MessagePasser extends Observable{
 	private String name;
 	private int port = 8002;
 	private LinkedList<Message> receivedMessages;
@@ -12,6 +12,8 @@ public class MessagePasser {
 	private  Configuration config;
 	private int messageId = 0;
 	private  String configurationFilename;
+	private TimeStamp timeStamp;
+	private int userId;
 	public MessagePasser(String configurationFilename, String localName) {
 		this.configurationFilename = configurationFilename;
 		try {
@@ -24,7 +26,16 @@ public class MessagePasser {
 		name = localName;
 		receivedMessages = new LinkedList<Message>();
 		toSendMessages = new LinkedList<Message>();
-		
+
+		userId = 0;
+		for(Node node:config.getNodeList())	{
+			if(node.getName().equals(name))	{
+				break;
+			}
+			userId++;
+		}
+		timeStamp = TimeStampFactory.getTimeStamp(config.getClockType(),userId,config.getNodeList().size());
+	
 		//send register message
 		
 		//block until receive feedback
@@ -43,7 +54,7 @@ public class MessagePasser {
 				String toAlias = br.readLine();
 				String type = br.readLine();
 				String content = br.readLine();
-				Message message = new Message(name,toAlias,type,content);
+				Message message = new TimeStampMessage(name,toAlias,type,timeStamp,content);
 				send(message);
 			}
 			else if(command.equals("#receive"))	{
@@ -109,7 +120,7 @@ public class MessagePasser {
 			}
 			toSendMessages.remove();
 		}
-		
+		timeStamp.addByOneTick();
 		
 	}
 	synchronized void  receive()	{// may block
@@ -117,11 +128,13 @@ public class MessagePasser {
 			System.out.println("No message");
 			return;
 		}			
-		Message message = receivedMessages.pollFirst();
+		TimeStampMessage message = (TimeStampMessage) receivedMessages.pollFirst();
+		timeStamp.syncTime(message.getTimeStamp());
 		System.out.println(message);
 	}
 	synchronized void addMessage(Message message)
 	{
+		//System.out.println("Get " + message.toString());
 		Rule matchedRule = null;
 		for(Rule rule:config.getReceiveRules())	{
 			if(rule.isMatch(message))
@@ -141,8 +154,11 @@ public class MessagePasser {
 		else{
 			receivedMessages.add(message);
 		}
+		setChanged();
+		notifyObservers(message);
 	}
 	void listen() throws Exception {
+		System.out.println("Listening to " + port);
 		Receiver reciver = new Receiver(port,this);
 		reciver.start();
 	}

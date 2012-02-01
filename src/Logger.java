@@ -15,6 +15,13 @@ public class Logger implements Observer {
 	private List<TimeStampMessage> messages;
 	public Logger(String configurationFilename)	{
 		messagePasser = new MessagePasser(configurationFilename,"logger");
+		messagePasser.addObserver(this);
+		try {
+			messagePasser.listen();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		messages = new ArrayList<TimeStampMessage>();
 	}
 	private void sortMessages() {
@@ -48,6 +55,7 @@ public class Logger implements Observer {
 	@Override 
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
+		System.out.println("updated");
 		TimeStampMessage message = (TimeStampMessage) arg1;
 		messages.add(message);
 	}

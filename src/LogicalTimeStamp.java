@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class LogicalTimeStamp extends TimeStamp {
+
+public class LogicalTimeStamp extends TimeStamp implements Serializable {
 	private long clock;
 	
 	public LogicalTimeStamp() {
@@ -10,13 +12,17 @@ public class LogicalTimeStamp extends TimeStamp {
 		super(userID);
 	}
 	
+	public LogicalTimeStamp(int userID, int nodeNumber) {
+		super(userID, nodeNumber);
+	}
+	
 	public long getClock() { return clock; }
 	
 	public void setClock( long currentTime ) {
 		this.clock = currentTime;
 	}
 	
-	public static int compare( TimeStamp a, TimeStamp b) { 
+	public  int compare( TimeStamp a, TimeStamp b) { 
 		long aa = ((LogicalTimeStamp)a).getClock();
 		long bb = ((LogicalTimeStamp)b).getClock();
 		

@@ -1,0 +1,6 @@
+From bob to logger log id=4
+TimeStamp: [0, 3, 0, 0, 0]
+Message: log2
+From bob to logger log id=3
+TimeStamp: [0, 2, 0, 0, 0]
+Message: log1

@@ -10,14 +10,21 @@ public abstract class TimeStamp {
 		this.userID = userID;
 	}
 	
+	public TimeStamp(int userID, int nodeNumber) {
+		this.userID = userID;
+	}
+	
+	
+	
 	public int getUserID() { return userID; }
 	
 	public void setUserID( int userID ) {
 		this.userID = userID;
 	}
 	
-	static public int compare( TimeStamp a, TimeStamp b){ 
+	 public  int compare( TimeStamp a, TimeStamp b){ 
 		return -2;
+		
 	}
 	
 	public void addByOneTick() {}
