@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Logger implements Observer {
 	private MessagePasser messagePasser;
-
+    
 	private static String logDir = "log/";
 	private List<TimeStampMessage> messages;
 	public Logger(String configurationFilename)	{
@@ -37,6 +37,7 @@ public class Logger implements Observer {
 		}
 		bw.close();
 		fw.close();
+		System.out.println("Log file finished.");
 	}
 	public void run() throws IOException	{
 		InputStreamReader isr = new InputStreamReader(System.in);

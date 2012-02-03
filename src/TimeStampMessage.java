@@ -6,8 +6,10 @@ public class TimeStampMessage extends Message implements Comparable<TimeStampMes
 	
 	public TimeStampMessage(String src, String dest, String kind, TimeStamp timeStamp, Object data) {
 		super(src, dest, kind, data);
-		this.timeStamp = timeStamp;
+		this.timeStamp = timeStamp.clone();
+		
 	}
+	
 	
 	public TimeStamp getTimeStamp() { return timeStamp; }
 	
@@ -32,8 +34,8 @@ public class TimeStampMessage extends Message implements Comparable<TimeStampMes
 				compareResult=1;
 				
 		}
-		System.out.println(this.timeStamp + " " + o.timeStamp  + " " +
-				timeStamp.getUserID() + " " + o.timeStamp.getUserID()+ "\t" +compareResult);
+		//System.out.println(this.timeStamp + " " + o.timeStamp  + " " +
+				//timeStamp.getUserID() + " " + o.timeStamp.getUserID()+ "\t" +compareResult);
 
 		return compareResult;
 	}

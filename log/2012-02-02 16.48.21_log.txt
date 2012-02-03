@@ -1,0 +1,6 @@
+From alice to logger hello id=1
+TimeStamp: [1, 0, 0, 0, 0]
+Message: 1
+From alice to logger hello id=2
+TimeStamp: [2, 0, 0, 0, 0]
+Message: 2

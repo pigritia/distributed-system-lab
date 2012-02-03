@@ -8,7 +8,12 @@ public class VectorTimeStamp extends TimeStamp implements Serializable{
 	public VectorTimeStamp() {
 		super();
 	}
-	
+	public VectorTimeStamp(VectorTimeStamp t) {
+		super(t);
+		clock = new long[t.clock.length];
+		for(int i = 0; i < clock.length; i++)
+			clock[i] = t.clock[i];
+	}
 	public VectorTimeStamp(int userID) {
 		super(userID);
 	}
@@ -17,6 +22,9 @@ public class VectorTimeStamp extends TimeStamp implements Serializable{
 		clock = new long[nodeNumber];
 	}
 	
+	public TimeStamp clone() {
+		return new VectorTimeStamp(this);
+	}
 
 
 	public long [] getClock() { return this.clock; }

@@ -1,0 +1,3 @@
+From alice to logger hello id=1
+TimeStamp: [1, 0, 0, 0, 0]
+Message: 1

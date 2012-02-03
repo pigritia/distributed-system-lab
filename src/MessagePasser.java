@@ -35,7 +35,7 @@ public class MessagePasser extends Observable{
 			userId++;
 		}
 		timeStamp = TimeStampFactory.getTimeStamp(config.getClockType(),userId,config.getNodeList().size());
-	
+		System.out.println(timeStamp + " " + timeStamp.getUserID());
 		//send register message
 		
 		//block until receive feedback
@@ -67,7 +67,19 @@ public class MessagePasser extends Observable{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (command.equals("#process")) {
+				
+			} 
+			else if (command.equals("#event")) {
+				String event = br.readLine();
+				String send = br.readLine();
+				timeStamp.addByOneTick();
+				System.out.println(timeStamp + " " + event + " occured.");
+				if(send.equals("yes"))	{
+					Message message = new TimeStampMessage(name,"logger","event",timeStamp,event);
+					send(message);
+				}
+			}
+			else if (command.equals("#process")) {
 				
 			}
 		}
@@ -75,6 +87,7 @@ public class MessagePasser extends Observable{
 	void send(Message message) {
 		message.setId(++messageId);
 		Rule matchedRule = null;
+		timeStamp.addByOneTick();
 		for(Rule rule:config.getSendRules())	{
 			if(rule.isMatch(message))	{
 				//System.out.println(rule.toString() + " matched");
@@ -120,7 +133,7 @@ public class MessagePasser extends Observable{
 			}
 			toSendMessages.remove();
 		}
-		timeStamp.addByOneTick();
+		
 		
 	}
 	synchronized void  receive()	{// may block
@@ -130,6 +143,7 @@ public class MessagePasser extends Observable{
 		}			
 		TimeStampMessage message = (TimeStampMessage) receivedMessages.pollFirst();
 		timeStamp.syncTime(message.getTimeStamp());
+		timeStamp.addByOneTick();
 		System.out.println(message);
 	}
 	synchronized void addMessage(Message message)

@@ -1,3 +1,0 @@
-From alice to logger log id=1
-0
-log1

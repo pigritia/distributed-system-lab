@@ -10,7 +10,7 @@ public class TimeStampFactory {
 			return null;
 		}
 	}
-	
+
 	public static TimeStamp getTimeStamp(String type, int userID) {
 		if (type.equals("logical")) {
 			return new LogicalTimeStamp(userID);
@@ -21,7 +21,7 @@ public class TimeStampFactory {
 			return null;
 		}
 	}
-	
+
 	public static TimeStamp getTimeStamp(String type, int userID, int nodeNumber) {
 		if (type.equals("logical")) {
 			return new LogicalTimeStamp(userID);
@@ -32,5 +32,8 @@ public class TimeStampFactory {
 			return null;
 		}
 	}
+	public static void main(String[]args)	{
+		TimeStamp t = getTimeStamp("vector",10,20);
+		System.out.println(t + " " + t.getUserID());
+	}
 }
-

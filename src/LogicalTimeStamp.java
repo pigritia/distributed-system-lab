@@ -7,6 +7,10 @@ public class LogicalTimeStamp extends TimeStamp implements Serializable {
 	public LogicalTimeStamp() {
 		super();
 	}
+	public LogicalTimeStamp(LogicalTimeStamp t) {
+		super(t);
+		clock = t.clock;
+	}
 	
 	public LogicalTimeStamp(int userID) {
 		super(userID);
@@ -14,6 +18,10 @@ public class LogicalTimeStamp extends TimeStamp implements Serializable {
 	
 	public LogicalTimeStamp(int userID, int nodeNumber) {
 		super(userID, nodeNumber);
+	}
+	
+	public TimeStamp clone() {
+		return new LogicalTimeStamp(this);
 	}
 	
 	public long getClock() { return clock; }
